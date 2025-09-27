@@ -1,39 +1,42 @@
-What is Whole Genome Sequencing (WGS)?
+# <b>What is Whole Genome Sequencing (WGS)?</b>
+<br>
 Whole genome sequencing (WGS) is a laboratory technique used to determine the entire DNA sequence of an organism’s genome, covering both the coding and non-coding regions. This means that every single nucleotide (the building blocks of DNA: A, T, C, G) in the genome is mapped, providing a complete genetic “blueprint” of a person, animal, plant, or microbe.
+<br>
+<b>EXPERIMENT—DNA-Seq of Drosophila melanogaster:</b><br>
+Adult Whole Body (SRX29609289)<br>
+From NCBI-SRA—<br>
+<b>Type →</b> Whole Genome Sequencing (WGS) of Drosophila melanogaster.<br>
+<b>Library layout →</b> Paired-end reads (two FASTQ files per sample: _1.fastq.gz and _2.fastq.gz).<br>
+<b>Instrument →</b> Illumina NovaSeq 6000 (produces high-quality, short reads).<br>
+<b>Read count →</b> ~33 million read pairs (32,960,967 spots).<br>
+<b>Genome size (D. melanogaster) → </b>~180 Mb → So 3.3 Gb total bases ≈ ~18× coverage.<br>
+<b>Selection →</b> PCR (so you’ll have some duplicates → makes the MarkDuplicates step important).<br>
+Sex male <br>
+Tissue whole body<br>
+<b>Library preparation →</b> NEBNext Ultra II DNA Library Prep Kit → standard for WGS.<br>
 
-EXPERIMENT—DNA-Seq of Drosophila melanogaster: Adult Whole Body (SRX29609289)
-From NCBI-SRA—
-Type → Whole Genome Sequencing (WGS) of Drosophila melanogaster.
-Library layout→ Paired-end reads (two FASTQ files per sample: _1.fastq.gz and _2.fastq.gz).
-Instrument→ Illumina NovaSeq 6000 (produces high-quality, short reads).
-Read count→ ~33 million read pairs (32,960,967 spots).
-Genome size (D. melanogaster) → ~180 Mb → So 3.3 Gb total bases ≈ ~18× coverage.
-Selection → PCR (so you’ll have some duplicates → makes the MarkDuplicates step important).
-Sex male
-Tissue whole body
-Library preparation → NEBNext Ultra II DNA Library Prep Kit → standard for WGS.
-
-Tools Required
+## NGS Pipeline Tools
 This workflow covers the steps for processing whole genome sequencing data—from SRA data download
 
-NGS Pipeline Tools
-Step/Function	Tool/Utility	Installation Command
-Data download	SRA Toolkit	conda install sra-tools
-Quality check	FastQC	conda install fastqc
-Trimming	Trimmomatic	conda install trimmomatic
-Alignment	BWA	conda install bwa
-SAM/BAM handling	Samtools	conda install samtools
-Duplicate removal	Picard	conda install picard
-Variant calling	FreeBayes	conda install freebayes
-VCF manipulation	BCFtools	conda install bcftools
-Filtering & scripting	awk	Default in Linux
-Download/unpack files	wget/curl	Default in Linux/macOS
-STEPS:-
+| Step / Function        | Tool / Utility  | Installation Command          |
+|------------------------|-----------------|-------------------------------|
+| Data download          | SRA Toolkit     | `conda install sra-tools`     |
+| Quality check          | FastQC          | `conda install fastqc`        |
+| Trimming               | Trimmomatic     | `conda install trimmomatic`   |
+| Alignment              | BWA             | `conda install bwa`           |
+| SAM/BAM handling       | Samtools        | `conda install samtools`      |
+| Duplicate removal      | Picard          | `conda install picard`        |
+| Variant calling        | FreeBayes       | `conda install freebayes`     |
+| VCF manipulation       | BCFtools        | `conda install bcftools`      |
+| Filtering & scripting  | awk             | Default in Linux              |
+| Download/unpack files  | wget / curl     | Default in Linux/macOS        |
+
+# STEPS:-
 Download data from NCBI-SRA SRX29609289, which is the accession number for a specific sequencing experiment submitted to the NCBI Sequence Read Archive (SRA) and PRJNA1285438 is the unique accession number for a BioProject at NCBI, and SRR34448914 is a unique SRA Run accession number
 Command:fastq-dump --split-files --gzip SRR34448914 Output file:-fastq.gz
 This command will give sample SRR34448914_1.fastq.gz and SRR34448914_2.fastq.gz
 Quality control (A) Quality Check using FastQC
-(B) Trimming Using Trimmomatic
+                (B) Trimming Using Trimmomatic
 
 (A) Quality check using fastQC
 Command:-/media/kirti/HD/ASSIGNMENT/SDA/tools/FastQC/fastqc /media/kirti/HD/ASSIGNMENT/SDA/raw_reads/SRR34448914_1.fastq.gz -o /media/kirti/HD/ASSIGNMENT/SDA/fastqc/before1
@@ -100,6 +103,6 @@ cd IGV_Linux_2.16.2
 Run IGV
 ./igv.sh and run - bash igv.sh
 
-Annotation: The experiment focuses on the vermilion mutant, a classical Drosophila eye-color mutation that produces orange eyes due to disruption in the vermilion gene (FBgn0003965), which encodes tryptophan 2,3-dioxygenase, an enzyme essential for ommochrome pigment biosynthesis. The vermilion gene is located on the X chromosome at chrX:10,923,972–10,925,631 (dm6 assembly), and mutations in this locus often result from single nucleotide changes, small indels, or insertions of transposable elements upstream of the gene.
-
-Mutants gene: This BAM file can then be loaded into a genome browser such as IGV (Integrative Genomics Viewer) along with the reference genome. Once the genome and reads are loaded, you can navigate directly to the vermilion gene locus on the X chromosome (chrX:10,923,972–10,925,631 in dm6). In IGV, potential mutations will appear as mismatched bases (colored letters against the reference), small insertions or deletions, or clusters of soft-clipped or discordant reads, which may indicate larger structural changes or transposable element insertions.
+<b>Annotation:</b> The experiment focuses on the vermilion mutant, a classical Drosophila eye-color mutation that produces orange eyes due to disruption in the vermilion gene (FBgn0003965), which encodes tryptophan 2,3-dioxygenase, an enzyme essential for ommochrome pigment biosynthesis. The vermilion gene is located on the X chromosome at chrX:10,923,972–10,925,631 (dm6 assembly), and mutations in this locus often result from single nucleotide changes, small indels, or insertions of transposable elements upstream of the gene.
+<br>
+<b>Mutants gene:</b> This BAM file can then be loaded into a genome browser such as IGV (Integrative Genomics Viewer) along with the reference genome. Once the genome and reads are loaded, you can navigate directly to the vermilion gene locus on the X chromosome (chrX:10,923,972–10,925,631 in dm6). In IGV, potential mutations will appear as mismatched bases (colored letters against the reference), small insertions or deletions, or clusters of soft-clipped or discordant reads, which may indicate larger structural changes or transposable element insertions.
